@@ -9,13 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        
+        VStack{
+            
+            HStack{
+                
+                Text("To Do List")
+                    .font(.system(size: 35))
+                    .fontWeight(.black)
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                    
+                                    
+                }) {
+                Text("Add")
+                }
+                
+            }
+            .padding()
+            
+            Spacer()
+            
         }
-        .padding()
+        
     }
 }
 
