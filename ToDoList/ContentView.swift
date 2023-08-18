@@ -9,7 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var toDoItems: [ToDoItem] = []
+    @Environment(\.managedObjectContext) var context
+    
+    @FetchRequest(
+        entity: ToDo.entity(),
+        sortDescriptors: [ NSSortDescriptor(keyPath: \ToDo.id, ascending: false) ])
+        
+    var toDoItems: FetchedResults<ToDo>
+    
     @State private var showNewTask = false
     
     var body: some View {
@@ -40,13 +47,20 @@ struct ContentView: View {
             List {
                 
                 ForEach (toDoItems) { ToDoItem in
+                    
                     if ToDoItem.isImportant == true {
-                        Text("‼️" + ToDoItem.title)
-                    } else {
-                        Text(ToDoItem.title)
+                        Text("‼️" + (ToDoItem.title ?? "No title"))
+                        
                     }
                     
+                    else {
+                        Text(ToDoItem.title ?? "No title")
+                        
+                    }
+                    
+                    
                 }
+                .onDelete(perform: deleteTask)
                 
             }
             
@@ -54,10 +68,28 @@ struct ContentView: View {
         }
         
         if showNewTask {
-            NewToDoView(title: "", isImportant: false, toDoItems: $toDoItems, showNewTask: $showNewTask)
+            NewToDoView(title: "", isImportant: false, showNewTask: $showNewTask)
             
         }
         
+    }
+    
+    private func deleteTask(offsets: IndexSet) {
+        
+        withAnimation {
+            offsets.map { toDoItems[$0] }.forEach(context.delete)
+
+            do {
+                try context.save()
+                    
+            }
+            
+            catch {
+                print(error)
+                
+            }
+            
+        }
     }
     
 }
