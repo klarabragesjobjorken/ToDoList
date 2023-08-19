@@ -28,6 +28,7 @@ struct ContentView: View {
                 Text("To Do List")
                     .font(.system(size: 35))
                     .fontWeight(.black)
+                    .foregroundColor(Color.purple)
                 
                 Spacer()
                 
@@ -38,6 +39,9 @@ struct ContentView: View {
                 }) {
                 Text("Add")
                 }
+                .foregroundColor(Color.black)
+                .font(.system(size: 20))
+                .fontWeight(.bold)
                 
             }
             .padding()

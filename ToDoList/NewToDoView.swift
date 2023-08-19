@@ -23,17 +23,22 @@ struct NewToDoView: View {
             Text("Task title: ")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(Color.purple)
                 .padding()
             
             TextField("Enter the task description...", text: $title)
                 .multilineTextAlignment(.center)
                 .padding()
                 .background(Color(.systemGroupedBackground))
-                .cornerRadius(15)
+                .cornerRadius(30)
                 .padding()
             
             Toggle(isOn: $isImportant) {
                 Text("Is this task important?")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color.black)
+                    
                 
             }
             .padding()
@@ -46,6 +51,10 @@ struct NewToDoView: View {
               
             }) {
                 Text("Add task")
+                    .font(.headline)
+                    
+                    
+                    
             }
             .padding()
             
